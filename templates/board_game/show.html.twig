@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jeux de société!{% endblock %}
+
+{% block body %}
+    <h1>{{ board_game.name }}</h1>
+    {% if board_game.description  %}
+        <div>{{ board_game.description }}</div>
+    {% else %}
+        <div>Description en cours de rédaction.</div>
+    {% endif %}
+    <dl>
+        <dt>Date de sortie</dt><dd>{{ board_game.releasedAt | date('d-m-Y') }}</dd>
+        {% if board_game.ageGroup  %}
+            <dt>A partir de</dt><dd>{{ board_game.ageGroup}} ans</dd>
+        {% endif %}
+    </dl>
+    <a href="{{ path('app_boardgame_index') }}">Retour à la liste</a>
+{% endblock %}
