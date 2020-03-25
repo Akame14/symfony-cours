@@ -3,9 +3,9 @@
 {% block title %}Jeux de société!{% endblock %}
 
 {% block body %}
-    <h1>Ajout d'un jeu de société</h1>
+    <h1>Edition de {{ game.name }}</h1>
     {{ include('board_game/_form.html.twig', {
-        form: new_form,
-        action: "Ajouter",
+        form: edit_form,
+        action: "Modifier",
     }) }}
 {% endblock %}

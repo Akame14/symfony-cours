@@ -55,6 +55,7 @@ class BoardGameController extends AbstractController
      */
     public function new(Request $request, EntityManagerInterface $manager){
         $game = new BoardGame();
+        //On créé le formulaire avec les différents champs
         $form = $this->createFormBuilder($game)
             ->add('name',null,[
                 'label' => 'Nom',
@@ -86,6 +87,50 @@ class BoardGameController extends AbstractController
 
         return $this->render('board_game/new.html.twig',[
             'new_form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit", methods={"GET","PUT"})
+     * @param BoardGameRepository $repos
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function edit(BoardGame $game, Request $request, EntityManagerInterface $manager){
+        $form = $this->createFormBuilder($game,[
+            'method' => 'PUT',
+        ])
+            ->add('name',null,[
+                'label' => 'Nom',
+            ])
+            ->add('description',null,[
+                'label' => 'Description',
+            ])
+            ->add('releasedAt', DateType::class, [
+                'html5' => true,
+                'widget' => 'single_text',
+                'label' => 'Date de sortie',
+            ])
+            ->add('ageGroup',null,[
+                'label' => 'A partir de',
+            ])
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->flush();
+            //Affiche un message pour l'utilisateur
+            $this->addFlash('success',  'Mis à jour');
+            return $this->redirectToRoute('app_boardgame_show', [
+                "idJeu" => $game->getId(),
+            ]);
+        }
+
+        return $this->render('board_game/edit.html.twig',[
+            'game' => $game,
+            'edit_form' => $form->createView(),
         ]);
     }
 }
