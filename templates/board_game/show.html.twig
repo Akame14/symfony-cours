@@ -16,4 +16,5 @@
         {% endif %}
     </dl>
     <a href="{{ path('app_boardgame_index') }}">Retour à la liste</a>
+    <a href="{{  path('app_boardgame_edit', {id: board_game.id }) }}">Editer</a>
 {% endblock %}

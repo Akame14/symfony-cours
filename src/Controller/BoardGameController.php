@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\BoardGameType;
 
 /**
  * Class BoardGameController
@@ -56,22 +57,7 @@ class BoardGameController extends AbstractController
     public function new(Request $request, EntityManagerInterface $manager){
         $game = new BoardGame();
         //On créé le formulaire avec les différents champs
-        $form = $this->createFormBuilder($game)
-            ->add('name',null,[
-                'label' => 'Nom',
-            ])
-            ->add('description',null,[
-                'label' => 'Description',
-            ])
-            ->add('releasedAt', DateType::class, [
-                'html5' => true,
-                'widget' => 'single_text',
-                'label' => 'Date de sortie',
-                ])
-            ->add('ageGroup',null,[
-                'label' => 'A partir de',
-            ])
-            ->getForm();
+        $form = $this->createForm(BoardGameType::class, $game);
 
         $form->handleRequest($request);
 
@@ -92,30 +78,15 @@ class BoardGameController extends AbstractController
 
     /**
      * @Route("/{id}/edit", methods={"GET","PUT"})
-     * @param BoardGameRepository $repos
+     * @param BoardGame $game
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function edit(BoardGame $game, Request $request, EntityManagerInterface $manager){
-        $form = $this->createFormBuilder($game,[
+        $form = $this->createForm(BoardGameType::class, $game,[
             'method' => 'PUT',
-        ])
-            ->add('name',null,[
-                'label' => 'Nom',
-            ])
-            ->add('description',null,[
-                'label' => 'Description',
-            ])
-            ->add('releasedAt', DateType::class, [
-                'html5' => true,
-                'widget' => 'single_text',
-                'label' => 'Date de sortie',
-            ])
-            ->add('ageGroup',null,[
-                'label' => 'A partir de',
-            ])
-            ->getForm();
+        ]);
 
         $form->handleRequest($request);
 
