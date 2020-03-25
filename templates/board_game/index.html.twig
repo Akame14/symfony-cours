@@ -8,7 +8,13 @@
     <ul>
         {% for board_game in board_games %}
             <li>{{ board_game.name }}</li>
+            <div>
+                {% for category in board_game.classifiedIn %}
+                    Catégorie: {{ category.name}} {% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </div>
             <a href="{{ path('app_boardgame_show',{ idJeu: board_game.id }) }}">Voir le jeu</a>
+
         {% endfor %}
     </ul>
 {% endblock %}

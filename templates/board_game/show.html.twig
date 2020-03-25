@@ -15,6 +15,10 @@
             <dt>A partir de</dt><dd>{{ board_game.ageGroup}} ans</dd>
         {% endif %}
     </dl>
+    <div>{% for category in board_game.classifiedIn %}
+            {{ category.name}} {% if not loop.last %}, {% endif %}
+        {% endfor %}
+    </div>
     <a href="{{ path('app_boardgame_index') }}">Retour à la liste</a>
     <a href="{{  path('app_boardgame_edit', {id: board_game.id }) }}">Editer</a>
 {% endblock %}

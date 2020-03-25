@@ -24,7 +24,7 @@ class BoardGameController extends AbstractController
      * @return
      */
     public function index(BoardGameRepository $repos){
-        $boardGames = $repos->findAll();
+        $boardGames = $repos->findWithCategories();
         return $this->render('board_game/index.html.twig',[
            'board_games' => $boardGames,
         ]);
