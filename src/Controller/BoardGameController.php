@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\BoardGame;
 use App\Repository\BoardGameRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -40,6 +42,23 @@ class BoardGameController extends AbstractController
 
         return $this->render('board_game/show.html.twig',[
             'board_game' => $boardGame,
+        ]);
+    }
+
+    /**
+     * @Route("/new")
+     */
+    public function new(){
+        $game = new BoardGame();
+        $form = $this->createFormBuilder($game)
+            ->add('name')
+            ->add('description')
+            ->add('releasedAt', DateType::class, ['html5' => true,'widget' => 'single_text',])
+            ->add('ageGroup')
+            ->getForm();
+
+        return $this->render('board_game/new.html.twig',[
+            'new_form' => $form->createView(),
         ]);
     }
 }
