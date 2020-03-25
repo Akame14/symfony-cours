@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\BoardGame;
 use App\Repository\BoardGameRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -46,16 +48,41 @@ class BoardGameController extends AbstractController
     }
 
     /**
-     * @Route("/new")
+     * @Route("/new", methods={"GET","POST"})
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function new(){
+    public function new(Request $request, EntityManagerInterface $manager){
         $game = new BoardGame();
         $form = $this->createFormBuilder($game)
-            ->add('name')
-            ->add('description')
-            ->add('releasedAt', DateType::class, ['html5' => true,'widget' => 'single_text',])
-            ->add('ageGroup')
+            ->add('name',null,[
+                'label' => 'Nom',
+            ])
+            ->add('description',null,[
+                'label' => 'Description',
+            ])
+            ->add('releasedAt', DateType::class, [
+                'html5' => true,
+                'widget' => 'single_text',
+                'label' => 'Date de sortie',
+                ])
+            ->add('ageGroup',null,[
+                'label' => 'A partir de',
+            ])
             ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $manager->persist($game);
+            $manager->flush();
+            //Affiche un message pour l'utilisateur
+            $this->addFlash('success',  'Nouveau jeu ajouté');
+            return $this->redirectToRoute('app_boardgame_show', [
+                "idJeu" => $game->getId(),
+            ]);
+        }
 
         return $this->render('board_game/new.html.twig',[
             'new_form' => $form->createView(),
