@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,6 +27,16 @@ class Category
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\BoardGame", mappedBy="classifiedIn")
+     */
+    private $boardGames;
+
+    public function __construct()
+    {
+        $this->boardGames = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -51,6 +63,32 @@ class Category
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|BoardGame[]
+     */
+    public function getBoardGames(): Collection
+    {
+        return $this->boardGames;
+    }
+
+    public function addBoardGames(BoardGame $classifiedIn): self
+    {
+        if (!$this->boardGames->contains($classifiedIn)) {
+            $this->boardGames[] = $classifiedIn;
+        }
+
+        return $this;
+    }
+
+    public function removeBoardGames(BoardGame $classifiedIn): self
+    {
+        if ($this->boardGames->contains($classifiedIn)) {
+            $this->boardGames->removeElement($classifiedIn);
+        }
 
         return $this;
     }

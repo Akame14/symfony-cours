@@ -43,7 +43,7 @@ class BoardGame
     private $ageGroup;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Category")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category",inversedBy="boardGames")
      */
     private $classifiedIn;
 

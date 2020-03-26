@@ -33,13 +33,13 @@ class BoardGameController extends AbstractController
 
     /**
      * Affiche le jeu dont l'id est passé en paramètre
-     * @Route("/{idJeu}", requirements={"idJeu": "\d+"})
+     * @Route("/{id}", requirements={"id": "\d+"})
      * @param BoardGameRepository $repos
-     * @param int $idJeu
+     * @param int $id
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(int $idJeu, BoardGameRepository $repos){
-        $boardGame = $repos->find($idJeu);
+    public function show(int $id, BoardGameRepository $repos){
+        $boardGame = $repos->find($id);
 
         if(!$boardGame){
             throw $this->createNotFoundException('Ce jeu n\'existe pas!');

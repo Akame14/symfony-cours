@@ -23,11 +23,9 @@ class CategoryController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/{id}")
      */
-    public function show(Category $category, BoardGameRepository $reposBoardGame){
-        $games = $reposBoardGame->findByClassifiedIn($category);
+    public function show(Category $category){
         return $this->render('category/show.html.twig',[
             'category' => $category,
-            'games' => $games,
         ]);
 
     }

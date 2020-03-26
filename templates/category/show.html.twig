@@ -11,7 +11,7 @@
     {% endif %}
     <p>Les jeux ayant cette catégorie:</p>
     <ul>
-        {% for game in games %}
+        {% for game in category.boardGames %}
             <li><a href="{{  path('app_boardgame_show', {id: game.id }) }}">{{  game.name }}</a></li>
         {% endfor %}
     </ul>
