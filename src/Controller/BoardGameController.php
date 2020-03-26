@@ -19,6 +19,7 @@ use App\Form\BoardGameType;
 class BoardGameController extends AbstractController
 {
     /**
+     * Affiche la liste des jeux
      * @param BoardGameRepository $repos
      * @Route("", methods="GET")
      * @return
@@ -31,6 +32,7 @@ class BoardGameController extends AbstractController
     }
 
     /**
+     * Affiche le jeu dont l'id est passé en paramètre
      * @Route("/{idJeu}", requirements={"idJeu": "\d+"})
      * @param BoardGameRepository $repos
      * @param int $idJeu
@@ -49,6 +51,7 @@ class BoardGameController extends AbstractController
     }
 
     /**
+     * Affiche le formulaire d'ajout d'un jeu
      * @Route("/new", methods={"GET","POST"})
      * @param Request $request
      * @param EntityManagerInterface $manager
@@ -77,6 +80,7 @@ class BoardGameController extends AbstractController
     }
 
     /**
+     * Affiche le formulaire d'édition du jeu dont l'id est passé en paramètre
      * @Route("/{id}/edit", methods={"GET","PUT"})
      * @param BoardGame $game
      * @param Request $request
