@@ -13,15 +13,14 @@ class BoardGameVoter extends Voter
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
-        return $attribute === ['GAME_EDIT']
+        return $attribute === 'GAME_EDIT'
             && $subject instanceof \App\Entity\BoardGame;
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token)
     {
         $user = $token->getUser();
-        dump($subject->getAuthor());
-        dump($user);
+
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;
