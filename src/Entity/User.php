@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -32,6 +33,17 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\BoardGame", mappedBy="author")
+     */
+    private $gamesWritten;
+
+    public function __construct()
+    {
+        $this->gamesWritten = new ArrayCollection();
+    }
+
 
     public function getId(): ?int
     {
