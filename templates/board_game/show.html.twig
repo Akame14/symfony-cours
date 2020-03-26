@@ -20,5 +20,7 @@
         {% endfor %}
     </div>
     <a href="{{ path('app_boardgame_index') }}">Retour à la liste</a>
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{  path('app_admin_boardgame_edit', {id: board_game.id }) }}">Editer</a>
+    {% endif %}
 {% endblock %}
