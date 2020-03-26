@@ -50,12 +50,18 @@ class BoardGameController extends AbstractController
     /**
      * Affiche le formulaire d'édition du jeu dont l'id est passé en paramètre
      * @Route("/{id}/edit", methods={"GET","PUT"})
+     * @IsGranted("GAME_EDIT", subject="game")
      * @param BoardGame $game
      * @param Request $request
      * @param EntityManagerInterface $manager
      * @return Response
      */
     public function edit(BoardGame $game, Request $request, EntityManagerInterface $manager){
+
+        if($game->getAuthor() != $this->getUser()){
+            throw $this->createAccessDeniedException("Vous n'avez pas les droits");
+        }
+
         $form = $this->createForm(BoardGameType::class, $game,[
             'method' => 'PUT',
         ]);
