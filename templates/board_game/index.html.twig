@@ -13,7 +13,7 @@
                     Catégorie: {{ category.name}} {% if not loop.last %}, {% endif %}
                 {% endfor %}
             </div>
-            <a href="{{ path('app_boardgame_show',{ idJeu: board_game.id }) }}">Voir le jeu</a>
+            <a href="{{ path('app_boardgame_show',{ id: board_game.id }) }}">Voir le jeu</a>
 
         {% endfor %}
     </ul>
