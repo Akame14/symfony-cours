@@ -17,10 +17,10 @@ class BoardGameType extends AbstractType
     {
         $builder
             ->add('name',null,[
-                'label' => 'Nom',
+                'label' => 'board_game.name.label',
             ])
             ->add('description',null,[
-                'label' => 'Description',
+                'label_format' => 'board_game.%name%.label',
             ])
             ->add('releasedAt',DateType::class, [
                 'html5' => true,

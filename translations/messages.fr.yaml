@@ -1,4 +1,5 @@
 board_game:
+
   index_page:
     title: 'Liste des jeux de société'
 
@@ -10,8 +11,10 @@ board_game:
     edit: 'Editer'
     retour_liste: 'Retour à la liste'
 
+# Fields
   description:
     no_value: 'Description en cours de rédaction.'
+    label: 'Description'
 
   author:
     label: 'Auteur:'
@@ -22,3 +25,6 @@ board_game:
   age_group:
     label: 'A partir de'
     display: 'ans.'
+
+  name:
+    label: 'Nom'
