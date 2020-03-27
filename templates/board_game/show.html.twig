@@ -7,21 +7,21 @@
     {% if board_game.description  %}
         <div>{{ board_game.description }}</div>
     {% else %}
-        <div>Description en cours de rédaction.</div>
+        <div>{{ 'board_game.description.no_value'|trans }}</div>
     {% endif %}
     <dl>
-        <dt>Date de sortie</dt><dd>{{ board_game.releasedAt | date('d-m-Y') }}</dd>
+        <dt>{{ 'board_game.releasedAt.label'|trans }}</dt><dd>{{ board_game.releasedAt | date('d-m-Y') }}</dd>
         {% if board_game.ageGroup  %}
-            <dt>A partir de</dt><dd>{{ board_game.ageGroup}} ans</dd>
+            <dt>{{ 'board_game.age_group.label'|trans }}</dt><dd>{{ board_game.ageGroup}} {{ 'board_game.age_group.display'|trans }}</dd>
         {% endif %}
     </dl>
-    <div>Auteur: {{  board_game.author.email }}</div>
+    <div>{{ 'board_game.author.label'|trans }} {{  board_game.author.email }}</div>
     <div>{% for category in board_game.classifiedIn %}
             {{ category.name}} {% if not loop.last %}, {% endif %}
         {% endfor %}
     </div>
-    <a href="{{ path('app_boardgame_index') }}">Retour à la liste</a>
+    <a href="{{ path('app_boardgame_index') }}">{{ 'board_game.action.retour_liste'|trans }}</a>
     {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{  path('app_admin_boardgame_edit', {id: board_game.id }) }}">Editer</a>
+    <a href="{{  path('app_admin_boardgame_edit', {id: board_game.id }) }}">{{ 'board_game.action.edit'|trans }}</a>
     {% endif %}
 {% endblock %}

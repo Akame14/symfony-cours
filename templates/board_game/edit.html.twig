@@ -3,9 +3,12 @@
 {% block title %}Jeux de société!{% endblock %}
 
 {% block body %}
-    <h1>Edition de {{ game.name }}</h1>
+    <h1>{{ 'board_game.edit_page.title'|trans({
+        '%name%':game.name
+    })
+    }}</h1>
     {{ include('board_game/_form.html.twig', {
         form: edit_form,
-        action: "Modifier",
+        action: {{ 'board_game.action.edit'|trans }},
     }) }}
 {% endblock %}
