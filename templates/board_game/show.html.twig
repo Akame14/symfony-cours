@@ -10,7 +10,7 @@
         <div>{{ 'board_game.description.no_value'|trans }}</div>
     {% endif %}
     <dl>
-        <dt>{{ 'board_game.releasedAt.label'|trans }}</dt><dd>{{ board_game.releasedAt | date('d-m-Y') }}</dd>
+        <dt>{{ 'board_game.released_at.label'|trans }}</dt><dd>{{ board_game.releasedAt | date('d-m-Y') }}</dd>
         {% if board_game.ageGroup  %}
             <dt>{{ 'board_game.age_group.label'|trans }}</dt><dd>{{ board_game.ageGroup}} {{ 'board_game.age_group.display'|trans }}</dd>
         {% endif %}

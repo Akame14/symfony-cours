@@ -19,7 +19,7 @@ board_game:
   author:
     label: 'Auteur:'
 
-  releasedAt:
+  released_at:
     label: 'Date de sortie:'
 
   age_group:
@@ -28,3 +28,7 @@ board_game:
 
   name:
     label: 'Nom'
+
+  classified_in:
+    label: 'Catégories: '
+
